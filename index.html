@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Coduri QR | Crează coduri QR rapid și simplu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="logo.svg" alt="QR Generator Logo">
+                <h1>QR<span>Gen</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Funcționalități</a></li>
+                    <li><a href="#generator">Generator</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Generează coduri QR <span>personalizate</span> în câteva secunde</h1>
+                <p>O soluție simplă și rapidă pentru a crea coduri QR pentru orice link. Personalizează dimensiunea, culoarea și descarcă rezultatul.</p>
+                <a href="#generator" class="btn primary-btn">Începe acum</a>
+            </div>
+            <div class="hero-image">
+                <img src="hero-image.svg" alt="QR Code Generator">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>De ce să folosești <span>QRGen</span>?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Rapid și Simplu</h3>
+                    <p>Generează coduri QR în mai puțin de 5 secunde fără a te înregistra.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Personalizabil</h3>
+                    <p>Alege dimensiunea, formatul și culoarea perfectă pentru nevoile tale.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Descărcare Rapidă</h3>
+                    <p>Descarcă codul QR în formatul dorit sau copiază linkul direct.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Compatibilitate Maximă</h3>
+                    <p>Codurile generate sunt compatibile cu orice scanner QR modern.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Generator Section -->
+    <section id="generator" class="generator">
+        <div class="container">
+            <h2>Generator de <span>Coduri QR</span></h2>
+            
+            <div class="generator-container">
+                <div class="generator-form">
+                    <form id="qr-form">
+                        <div class="form-group">
+                            <label for="url">URL sau text</label>
+                            <input type="text" id="url" placeholder="Introduceți URL-ul sau textul" required>
+                            <div class="error-message" id="url-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="size">Dimensiune</label>
+                            <select id="size">
+                                <option value="150x150">Mică (150x150)</option>
+                                <option value="200x200" selected>Medie (200x200)</option>
+                                <option value="300x300">Mare (300x300)</option>
+                                <option value="400x400">Foarte mare (400x400)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="format">Format</label>
+                            <select id="format">
+                                <option value="png" selected>PNG</option>
+                                <option value="svg">SVG</option>
+                                <option value="jpeg">JPEG</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="color">Culoare</label>
+                            <input type="color" id="color" value="#000000">
+                        </div>
+                        
+                        <button type="submit" class="btn primary-btn">Generează codul QR</button>
+                    </form>
+                </div>
+                
+                <div class="generator-result" id="result-container">
+                    <div class="placeholder-message">
+                        <i class="fas fa-qrcode"></i>
+                        <p>Introduceți un URL și apăsați pe butonul "Generează codul QR"</p>
+                    </div>
+                    
+                    <div class="result-content" id="result-content" style="display: none;">
+                        <div class="qr-image-container">
+                            <img id="qr-image" alt="Codul QR generat">
+                            <div class="loading-spinner" id="loading-spinner">
+                                <div class="spinner"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="result-details">
+                            <div class="detail-item">
+                                <span>URL:</span>
+                                <p id="result-url"></p>
+                            </div>
+                            <div class="detail-item">
+                                <span>Dimensiune:</span>
+                                <p id="result-size"></p>
+                            </div>
+                            <div class="detail-item">
+                                <span>Format:</span>
+                                <p id="result-format"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="result-actions">
+                            <button id="copy-link" class="btn secondary-btn">
+                                <i class="fas fa-copy"></i> Copiază Link
+                            </button>
+                            <button id="download-qr" class="btn primary-btn">
+                                <i class="fas fa-download"></i> Descarcă
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>QR<span>Gen</span></h3>
+                    <p>Generator de coduri QR simplu și rapid</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Link-uri rapide</h4>
+                    <ul>
+                        <li><a href="#features">Funcționalități</a></li>
+                        <li><a href="#generator">Generator</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 QRGen. Toate drepturile rezervate.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
