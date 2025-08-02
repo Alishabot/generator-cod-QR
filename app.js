@@ -49,7 +49,7 @@ class QRGenerator {
         const url = this.urlInput.value.trim();
         
         if (!this.validateURL(url)) {
-            this.showError('Vă rugăm să introduceți un URL valid sau text.');
+            this.showError('Vă rugăm să introduceți un URL complet (ex: https://example.com) sau un text cu cel puțin 3 caractere.');
             return;
         }
         
@@ -68,13 +68,22 @@ class QRGenerator {
     validateURL(url) {
         if (!url) return false;
         
+        // Edge case: URL-uri incomplete ca "https://" sau "http://"
+        if (url === 'https://' || url === 'http://' || url === 'ftp://') {
+            return false;
+        }
+        
         // Verifică dacă este un URL valid
         try {
-            new URL(url);
+            const urlObj = new URL(url);
+            // Verifică dacă URL-ul are un hostname valid
+            if (!urlObj.hostname || urlObj.hostname.length < 1) {
+                return false;
+            }
             return true;
         } catch {
-            // Dacă nu este URL, acceptă orice text non-gol
-            return url.length > 0;
+            // Dacă nu este URL, acceptă orice text non-gol cu cel puțin 3 caractere
+            return url.length >= 3;
         }
     }
     
@@ -252,7 +261,17 @@ class QRGenerator {
 
 // Inițializare aplicație când DOM-ul este gata
 document.addEventListener('DOMContentLoaded', () => {
+    // Inițializează generatorul QR
     new QRGenerator();
+    
+    // Configurează animațiile pentru cardurile de funcționalități
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+        observer.observe(card);
+    });
 });
 
 // Animații pentru scroll
@@ -281,14 +300,3 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, observerOptions);
-
-// Aplică animațiile când DOM-ul este gata
-document.addEventListener('DOMContentLoaded', () => {
-    const featureCards = document.querySelectorAll('.feature-card');
-    featureCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(card);
-    });
-});
